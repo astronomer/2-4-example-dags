@@ -14,7 +14,7 @@ S3_BUCKET_2 = "myexamplebuckettwo"
 
 with DAG(
     dag_id="2_3_example_dag_zip_workaround",
-    start_date=datetime(2022,9,1),
+    start_date=datetime(2022, 9, 1),
     schedule_interval=None,
     catchup=False
 ) as dag:
@@ -43,7 +43,7 @@ with DAG(
 
     @task
     def zip_manually(S3_file_list_1, S3_file_list_2, snowflake_information):
-        
+
         zipped_file_names = list(
             zip_longest(
                 S3_file_list_1,
@@ -55,14 +55,14 @@ with DAG(
 
         return zipped_file_names
 
-    @task 
+    @task
     def compare_dates_logfiles(input_tuple):
         date_file_1 = re.findall("(\d+_\d+_\d+)", input_tuple[0])[0]
         name_file_2 = re.findall("\d+_\d+_\d+_(.+).txt", input_tuple[1])[0]
         snowflake_entry = input_tuple[2]
 
         date_file_1_converted_format = date_file_1.replace("_", "-")
-        
+
         if (
             snowflake_entry['DATE'] == date_file_1_converted_format
             and snowflake_entry['CUSTOMER'] == name_file_2
