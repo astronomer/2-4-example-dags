@@ -10,7 +10,7 @@ The DAG assumes that a SageMaker model has already been created, and runs the on
 using SageMaker batch transform. This method is useful if you don't have a hosted model endpoint and want
 to run ad-hoc predictions when data becomes available.
 
-The DAG uploads a local dataset from the /include directory to S3, then submits a Batch Transform job to SageMaker
+The DAG is scheduled on a dataset (defined by the "dataset_uri" variable) that is loaded to S3 by another DAG. Once run, it submits a Batch Transform job to SageMaker
 to get model inference on that data. The inference results are saved to the S3 Output Path given in the config.
 Finally, the inference results are uploaded to a table in Redshift using the S3 to Redshift transfer operator.
 """

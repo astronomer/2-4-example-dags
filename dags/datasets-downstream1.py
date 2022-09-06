@@ -3,6 +3,11 @@ import pendulum
 from airflow import DAG, Dataset
 from airflow.operators.bash import BashOperator
 
+"""
+This is an example of a DAG that consumes two datasets.
+The DAG only runs once dag1_dataset and dag2_dataset have been updated.
+"""
+
 dag1_dataset = Dataset('s3://dataset1/output_1.txt')
 dag2_dataset = Dataset('s3://dataset2/output_2.txt')
 

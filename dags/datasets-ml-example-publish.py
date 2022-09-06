@@ -4,11 +4,17 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 import pendulum
 
+"""
+This DAG publishes a dataset that is used by a separate consumer DAG to executing predictions 
+from a machine learning model using AWS SageMaker. 
+
+It takes a local dataset from the /include directory to S3. The "dataset_uri" variable is provided
+as an `outlet` to the producer task.
+"""
 
 s3_bucket = 'sagemaker-us-east-2-559345414282'
 test_s3_key = 'demo-sagemaker-xgboost-adult-income-prediction/test/test.csv' 
 dataset_uri = 's3://' + test_s3_key  
-
 
 @dag(
     schedule='@daily',

@@ -3,6 +3,10 @@ import pendulum
 from airflow import DAG, Dataset
 from airflow.operators.bash import BashOperator
 
+"""
+This is an example of a DAG with dataset producer tasks.
+upstream_task_1 updates dag1_dataset.
+"""
 
 dag1_dataset = Dataset('s3://dataset1/output_1.txt')
 
