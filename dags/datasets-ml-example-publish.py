@@ -5,10 +5,10 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 import pendulum
 
 """
-This DAG publishes a dataset that is used by a separate consumer DAG to executing predictions 
+This DAG publishes a dataset that is used by a separate consumer DAG to execute predictions 
 from a machine learning model using AWS SageMaker. 
 
-It takes a local dataset from the /include directory to S3. The "dataset_uri" variable is provided
+It uploads data from the local /include directory to an S3 bucket. The "dataset_uri" variable is provided
 as an `outlet` to the producer task.
 """
 
@@ -21,13 +21,12 @@ dataset_uri = 's3://' + test_s3_key
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     catchup=False,
 )
-
 def datasets_ml_example_publish():
 
     @task(outlets=Dataset(dataset_uri))
     def upload_data_to_s3(s3_bucket, test_s3_key):
         """
-        Uploads validation data to S3 from /include/data
+        Uploads validation data to S3 from /include/data.
         """
         s3_hook = S3Hook(aws_conn_id='aws-sagemaker')
 

@@ -16,7 +16,7 @@ with DAG(
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     schedule=None,
     tags=['upstream'],
-) as dag2:
+) as dag:
 
     task1= BashOperator(
         task_id='upstream_task_2', 
@@ -28,6 +28,6 @@ with DAG(
         task_id='upstream_task_3', 
         bash_command="sleep 30",
         outlets=[dag2_dataset]
-        )
+    )
 
     task1 >> task2

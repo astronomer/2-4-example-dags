@@ -16,7 +16,7 @@ with DAG(
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     schedule='@daily',
     tags=['upstream'],
-) as dag1:
+) as dag:
 
     BashOperator(
         task_id='upstream_task_1', 

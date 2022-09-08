@@ -29,7 +29,7 @@ transform_config = {
         "TransformInput": {
             "DataSource": {
                 "S3DataSource": {
-                    "S3DataType":"S3Prefix",
+                    "S3DataType": "S3Prefix",
                     "S3Uri": "s3://{0}/{1}".format(s3_bucket, test_s3_key)
                 }
             },
