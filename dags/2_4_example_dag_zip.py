@@ -6,10 +6,32 @@ from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
 import re
 import logging
 
+"""
+This DAG shows an example implementation of comparing data between two
+S3 buckets and a table in Snowflake using the new .zip() method of the
+XComArg object. 
+
+The DAG gathers the names of all .txt files in S3_BUCKET_1 and S3_BUCKET_2, as
+well as information from a DATE and a CUSTOMER column in Snowflake. The
+information from XCom is zipped using the new .zip() method. A comparing
+function checks that the date in the name of the files from S3_BUCKET_1 and
+the customer in the name of the files from S3_BUCKET_2 match up chronologically
+with the information in the Snowflake table.
+Any mismatch will cause a failure of the DAG.
+
+This DAG needs both, a Snowflake and Amazon S3 connection. The format of the
+.txt file names is: YYYY_MM_DD_CUSTOMERNAME.txt.
+"""
+
+# get the Airflow task logger
 task_logger = logging.getLogger('airflow.task')
 
-S3_BUCKET_1 = "myexamplebucketone"
-S3_BUCKET_2 = "myexamplebuckettwo"
+# define the buckets and table to be compared
+S3_BUCKET_1 = "your S3 bucket 1"
+S3_BUCKET_2 = "your S3 bucket 2"
+SNOWFLAKE_DB = "your snowflake database"
+SNOWFLAKE_SCHEMA = "your snowflake schema"
+SNOWLAKE_TABLE = "your snowflake table"
 
 with DAG(
     dag_id="2_4_example_dag_zip",
@@ -33,9 +55,9 @@ with DAG(
     query_snowflake = SnowflakeOperator(
         task_id="query_snowflake",
         snowflake_conn_id="snowflake_conn",
-        sql="""
+        sql=f"""
             SELECT CAST(DATE AS TEXT) AS DATE, CUSTOMER AS CUSTOMER
-            FROM SANDBOX.TAMARAFINGERLIN.ZIP_EXAMPLE
+            FROM {SNOWFLAKE_DB}.{SNOWFLAKE_SCHEMA}.{SNOWLAKE_TABLE}
             ORDER BY DATE ASC
         """
     )
@@ -61,9 +83,13 @@ with DAG(
             )
 
     compare_dates_logfiles.expand(
+        # call .zip() on the XComArg object to zip together several
+        # XComArgs
         input_tuple=XComArg(list_files_in_S3_one).zip(
             XComArg(list_files_in_S3_two),
             XComArg(query_snowflake),
+            # fillvalue defines the entry in the zipped tuple in case one list
+            # is shorter than the others
             fillvalue="MISSING ENTRY"
         )
     )
