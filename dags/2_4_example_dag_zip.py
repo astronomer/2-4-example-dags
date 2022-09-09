@@ -1,3 +1,5 @@
+"""Example DAG showing the use of the .zip method of the XComArg object."""
+
 from airflow import DAG, XComArg
 from airflow.decorators import task
 from datetime import datetime
@@ -9,7 +11,7 @@ import logging
 """
 This DAG shows an example implementation of comparing data between two
 S3 buckets and a table in Snowflake using the new .zip() method of the
-XComArg object. 
+XComArg object.
 
 The DAG gathers the names of all .txt files in S3_BUCKET_1 and S3_BUCKET_2, as
 well as information from a DATE and a CUSTOMER column in Snowflake. The
@@ -64,6 +66,14 @@ with DAG(
 
     @task
     def compare_dates_logfiles(input_tuple):
+        """Compare info from the S3 buckets and the Snowflake table.
+
+        Compares the date from files in the S3_BUCKET_1 with the dates in
+        the DATE column of the Snowflake table as well as the customer names
+        from the in the files from S3_BUCKET_2 with the customer names
+        in the CUSTOMER column of the Snowflake table.
+        Throws an error if there is any mismatch.
+        """
         date_file_1 = re.findall("(\d+_\d+_\d+)", input_tuple[0])[0]
         name_file_2 = re.findall("\d+_\d+_\d+_(.+).txt", input_tuple[1])[0]
         snowflake_entry = input_tuple[2]

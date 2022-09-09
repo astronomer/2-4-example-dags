@@ -1,3 +1,5 @@
+"""Example DAG showing a workaround to 'zip' arguments in Airflow 2.3."""
+
 from airflow import DAG, XComArg
 from airflow.decorators import task
 from datetime import datetime
@@ -67,7 +69,11 @@ with DAG(
     # create a function that zips together inputs from 3 XComArgs
     @task
     def zip_manually(S3_file_list_1, S3_file_list_2, snowflake_information):
+        """Create a zip object from the input.
 
+        Creates a tuple for each set of filename from S3_BUCKET_1, S3_BUCKET_2
+        and row from the Snowflake query.
+        """
         zipped_file_names = list(
             zip_longest(
                 S3_file_list_1,
@@ -87,6 +93,14 @@ with DAG(
 
     @task
     def compare_dates_logfiles(input_tuple):
+        """Compare info from the S3 buckets and the Snowflake table.
+
+        Compares the date from files in the S3_BUCKET_1 with the dates in
+        the DATE column of the Snowflake table as well as the customer names
+        from the in the files from S3_BUCKET_2 with the customer names
+        in the CUSTOMER column of the Snowflake table.
+        Throws an error if there is any mismatch.
+        """
         date_file_1 = re.findall("(\d+_\d+_\d+)", input_tuple[0])[0]
         name_file_2 = re.findall("\d+_\d+_\d+_(.+).txt", input_tuple[1])[0]
         snowflake_entry = input_tuple[2]
