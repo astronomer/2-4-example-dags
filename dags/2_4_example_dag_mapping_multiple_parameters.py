@@ -1,4 +1,7 @@
-"""Toy example DAG containing different options for dynamic task mapping."""
+"""Toy example DAG containing different options for dynamic task mapping.
+
+Some of these features require Airflow version 2.4+.
+"""
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -7,13 +10,14 @@ from airflow.decorators import task
 from datetime import datetime
 
 with DAG(
-    dag_id="mapping_multiple_parameters_dag",
+    dag_id="2_4_example_dag_mapping_multiple_parameters",
     start_date=datetime(2022, 8, 1),
     schedule_interval=None,
     catchup=False
 ) as dag:
 
     # EXAMPLE 1: mapping over 2 kwargs - cross product
+    # Available in Airflow version 2.3+.
     cross_product_example = BashOperator.partial(
         task_id="cross_product_example"
     ).expand(
@@ -31,7 +35,8 @@ with DAG(
     # results in 3x3=9 mapped task instances printing:
     # hello, tea, goodbye, 5, 3, 7, hXllo, tXa, goodbyX
 
-    # EXAMPLE 2: mapping over sets of kwargs - 'zip-like'
+    # EXAMPLE 2: mapping over sets of kwarg.
+    # Available in Airflow version 2.4+.
     @task
     def turn_into_XComArg():
         """Turn sets of keywordarguments into an XComArg."""
@@ -60,11 +65,13 @@ with DAG(
     # hello, 3, goodbyX
 
     # EXAMPLE 3: mapping over a list containing a zip, TaskFlowAPI
+    # Available in Airflow version 2.4+.
     zipped_arguments = list(zip([1, 2, 3], [10, 20, 30], [100, 200, 300]))
     # zipped_arguments contains: [(1,10,100), (2,20,200), (3,30,300)]
+    # the zupped argumenta can also be created using the .zip() method of
+    # the XComArg object.
 
     # creating the mapped task instances using the TaskFlowAPI
-
     @task
     def TaskFlow_add_numbers(zipped_x_y_z):
         """Add x, y and z.
@@ -81,6 +88,7 @@ with DAG(
 
     # EXAMPLE 4: mapping over a list containing a zip,
     # traditional PythonOperator
+    # Available in Airflow version 2.4+.
     def add_numbers(x, y, z):
         """Add x, y and z.
 
@@ -99,6 +107,7 @@ with DAG(
     # 111, 222, 333
 
     # EXAMPLE 5: Mix zip and the cross-product behavior.
+    # Available in Airflow version 2.3+.
     def add_num(x, y, word):
         """Return a string containing the sum of x + y and a word."""
         return f"{x+y}: {word}"

@@ -1,4 +1,7 @@
-"""Toy example DAG showing dynamic task mapping with XComs."""
+"""Toy example DAG showing dynamic task mapping with XComs.
+
+These features are available in Airflow version 2.3+.
+"""
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -7,7 +10,7 @@ from datetime import datetime
 from airflow import XComArg
 
 with DAG(
-    dag_id="mapping_xcoms_dag",
+    dag_id="2_3_example_dag_mapping_xcoms",
     start_date=datetime(2022, 7, 1),
     schedule_interval=None,
     catchup=False
