@@ -10,7 +10,7 @@ from airflow.decorators import task
 from datetime import datetime
 
 with DAG(
-    dag_id="2_4_example_dag_mapping_multiple_parameters",
+    dag_id="2_4_example_toy_dag_mapping_multiple_parameters",
     start_date=datetime(2022, 8, 1),
     schedule_interval=None,
     catchup=False

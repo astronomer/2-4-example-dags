@@ -10,7 +10,7 @@ from datetime import datetime
 from airflow import XComArg
 
 with DAG(
-    dag_id="2_3_example_dag_mapping_xcoms",
+    dag_id="2_3_example_toy_dag_mapping_xcoms",
     start_date=datetime(2022, 7, 1),
     schedule_interval=None,
     catchup=False
