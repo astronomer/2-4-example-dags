@@ -1,1 +1,2 @@
 apache-airflow-providers-amazon==2.1.0
+astro-sdk-python==1.1.0b1
