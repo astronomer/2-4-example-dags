@@ -11,6 +11,14 @@ from astro.sql import (
 )
 from astro.sql.table import Table
 
+"""
+The datasets feature is pre-built into the Astro Python SDK.
+Datasets will be registered from any output tables, and the user
+does not need to define any `outlets` explicitly. 
+
+This DAG will create three datasets, one for the output of each task.
+"""
+
 SNOWFLAKE_CONN_ID = "snowflake_conn"
 AWS_CONN_ID = "aws_conn"
 
