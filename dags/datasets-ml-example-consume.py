@@ -1,5 +1,5 @@
 from airflow import DAG, Dataset
-from airflow.providers.amazon.aws.operators.sagemaker_transform import SageMakerTransformOperator
+from airflow.providers.amazon.aws.operators.sagemaker import SageMakerTransformOperator
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
 
 from datetime import datetime, timedelta
