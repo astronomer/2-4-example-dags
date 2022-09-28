@@ -3,6 +3,18 @@ Overview
 
 Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
 
+
+Prerequisites
+==============
+
+In order to use the Astro Python SDK examples included in this repo, you must add the following environment variables to your `.env` file.
+
+```bash
+AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
+AIRFLOW__ASTRO_SDK__SQL_SCHEMA=<your-schema>
+AIRFLOW__ASTRO_SDK__DATAFRAME_ALLOW_UNSAFE_STORAGE=True
+```
+
 Project Contents
 ================
 
