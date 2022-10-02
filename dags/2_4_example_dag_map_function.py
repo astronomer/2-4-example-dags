@@ -30,21 +30,29 @@ with DAG(
     catchup=False
 ):
 
+    # the S3ListOperator will return all names of files in the S3 bucket and
+    # can only filter by prefix, not by filetype
     list_files_S3 = S3ListOperator(
         task_id="list_files_S3",
         aws_conn_id="aws_conn",
         bucket=S3_BUCKET
     )
 
+    # the mapping function transforms the list of all filenames into a list of
+    # AirflowSkipExceptions and filenames causing all json, yml and txt files
+    # to be skipped by the downstream task
     def map_files_for_deletion(filename):
         if filename.rsplit(".", 1)[-1] in ("json", "yml", "txt"):
             raise AirflowSkipException(f"Skip deletion to keep {filename}")
         return filename
 
-    deletion_map = list_files_S3.output.map(map_files_for_deletion)
+    # using .map on the output object of the upstream operator
+    # this does not create a task in the Airflow UI
+    transformed_file_list = list_files_S3.output.map(map_files_for_deletion)
 
+    # the S3DeleteObjectsOperator dynamically maps over the transformed list
     delete_files = S3DeleteObjectsOperator.partial(
         task_id="delete_files",
         aws_conn_id="aws_conn",
         bucket=S3_BUCKET
-    ).expand(keys=deletion_map)
+    ).expand(keys=transformed_file_list)
