@@ -13,7 +13,8 @@ with DAG(
     dag_id="2_4_example_toy_dag_mapping_multiple_parameters",
     start_date=datetime(2022, 8, 1),
     schedule_interval=None,
-    catchup=False
+    catchup=False,
+    doc_md=__doc__
 ) as dag:
 
     # EXAMPLE 1: mapping over 2 kwargs - cross product

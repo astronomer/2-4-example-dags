@@ -1,14 +1,4 @@
-"""Example DAG showing the use of the .zip method of the XComArg object."""
-
-from airflow import DAG, XComArg
-from airflow.decorators import task
-from datetime import datetime
-from airflow.providers.amazon.aws.operators.s3 import S3ListOperator
-from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
-import re
-import logging
-
-"""
+"""Example DAG showing the use of the .zip method of the XComArg object.
 This DAG shows an example implementation of comparing data between two
 S3 buckets and a table in Snowflake using the new .zip() method of the
 XComArg object.
@@ -23,7 +13,17 @@ Any mismatch will cause a failure of the DAG.
 
 This DAG needs both, a Snowflake and Amazon S3 connection. The format of the
 .txt file names is: YYYY_MM_DD_CUSTOMERNAME.txt.
+
 """
+
+from airflow import DAG, XComArg
+from airflow.decorators import task
+from datetime import datetime
+from airflow.providers.amazon.aws.operators.s3 import S3ListOperator
+from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
+import re
+import logging
+
 
 # get the Airflow task logger
 task_logger = logging.getLogger('airflow.task')
@@ -39,7 +39,8 @@ with DAG(
     dag_id="2_4_example_dag_zip",
     start_date=datetime(2022, 9, 1),
     schedule_interval=None,
-    catchup=False
+    catchup=False,
+    doc_md=__doc__,
 ) as dag:
 
     list_files_in_S3_one = S3ListOperator(

@@ -1,15 +1,5 @@
-"""Example DAG showing a workaround to 'zip' arguments in Airflow 2.3."""
+"""Example DAG showing a workaround to 'zip' arguments in Airflow 2.3.
 
-from airflow import DAG, XComArg
-from airflow.decorators import task
-from datetime import datetime
-from airflow.providers.amazon.aws.operators.s3 import S3ListOperator
-from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
-import re
-import logging
-from itertools import zip_longest
-
-"""
 This DAG shows an example implementation of comparing data between two
 S3 buckets and a table in Snowflake by using a Python decorated task to zip
 the information together (a 2.3 workaround for the new 2.4 feature).
@@ -27,6 +17,15 @@ This DAG needs both, a Snowflake and Amazon S3 connection. The format of the
 .txt file names is: YYYY_MM_DD_CUSTOMERNAME.txt.
 """
 
+from airflow import DAG, XComArg
+from airflow.decorators import task
+from datetime import datetime
+from airflow.providers.amazon.aws.operators.s3 import S3ListOperator
+from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
+import re
+import logging
+from itertools import zip_longest
+
 # get the Airflow task logger
 task_logger = logging.getLogger('airflow.task')
 
@@ -41,7 +40,8 @@ with DAG(
     dag_id="2_3_example_dag_zip_workaround",
     start_date=datetime(2022, 9, 1),
     schedule_interval=None,
-    catchup=False
+    catchup=False,
+    doc_md=__doc__,
 ) as dag:
 
     list_files_in_S3_one = S3ListOperator(
