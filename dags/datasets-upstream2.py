@@ -1,12 +1,16 @@
+"""
+This is an example of a DAG with dataset producer tasks.
+upstream_task_2 and upstream_task_3 update dag2_dataset.
+
+This is meant to show off data driven scheduling in Airflow 2.4
+"""
+
 import pendulum
 
 from airflow import DAG, Dataset
 from airflow.operators.bash import BashOperator
 
-"""
-This is an example of a DAG with dataset producer tasks.
-upstream_task_2 and upstream_task_3 update dag2_dataset.
-"""
+
 
 dag2_dataset = Dataset('s3://dataset2/output_2.txt')
 
@@ -16,6 +20,7 @@ with DAG(
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     schedule=None,
     tags=['upstream'],
+    doc_md=__doc__
 ) as dag:
 
     task1= BashOperator(

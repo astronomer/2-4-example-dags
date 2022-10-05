@@ -18,7 +18,8 @@ with DAG(
     dag_id="2_4_example_toy_dag_map_function",
     start_date=datetime(2022, 10, 1),
     schedule=None,
-    catchup=False
+    catchup=False,
+    doc_md=__doc__,
 ):
 
     # an upstream task returns a list of outputs in a fixed format

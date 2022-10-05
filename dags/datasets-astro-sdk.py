@@ -1,3 +1,11 @@
+"""
+The datasets feature is pre-built into the Astro Python SDK.
+Datasets will be registered from any output tables, and the user
+does not need to define any `outlets` explicitly. 
+
+This DAG will create three datasets, one for the output of each task.
+"""
+
 import os
 from datetime import datetime
 
@@ -11,13 +19,7 @@ from astro.sql import (
 )
 from astro.sql.table import Table
 
-"""
-The datasets feature is pre-built into the Astro Python SDK.
-Datasets will be registered from any output tables, and the user
-does not need to define any `outlets` explicitly. 
 
-This DAG will create three datasets, one for the output of each task.
-"""
 
 SNOWFLAKE_CONN_ID = "snowflake_conn"
 AWS_CONN_ID = "aws_conn"
@@ -33,7 +35,7 @@ def extract_data(homes1: Table, homes2: Table):
     FROM {{homes2}}
     """
 
-@dag(start_date=datetime(2021, 12, 1), schedule_interval="@daily", catchup=False)
+@dag(start_date=datetime(2021, 12, 1), schedule_interval="@daily", catchup=False, doc_md=__doc__)
 def example_sdk_datasets():
 
     # Initial load of homes data csv's from S3 into Snowflake

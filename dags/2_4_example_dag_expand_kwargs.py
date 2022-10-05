@@ -1,15 +1,5 @@
-"""Example DAG showing the use of the .expand_kwargs method."""
+"""Example DAG showing the use of the .expand_kwargs method.
 
-from airflow import DAG, XComArg
-from airflow.decorators import task
-from datetime import datetime
-from airflow.providers.amazon.aws.operators.s3 import (
-    S3CopyObjectOperator, S3ListOperator, S3DeleteObjectsOperator
-)
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-import logging
-
-"""
 This DAG shows an example implementation of sorting files in an S3 bucket into
 two different buckets based on logic involving the content of the files using
 dynamic task mapping with the expand_kwargs() method introduced in
@@ -28,6 +18,18 @@ The last task maps over one keyword argument using the expand() method
 introduced in Airflow 2.3.
 """
 
+
+from airflow import DAG, XComArg
+from airflow.decorators import task
+from datetime import datetime
+from airflow.providers.amazon.aws.operators.s3 import (
+    S3CopyObjectOperator, S3ListOperator, S3DeleteObjectsOperator
+)
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+import logging
+
+
+
 # get the Airflow task logger
 task_logger = logging.getLogger('airflow.task')
 
@@ -40,7 +42,8 @@ with DAG(
     dag_id="2_4_example_dag_expand_kwargs",
     start_date=datetime(2022, 9, 1),
     schedule_interval=None,
-    catchup=False
+    catchup=False,
+    doc_md=__doc__,
 ) as dag:
 
     # fetch the file names from the ingest S3 bucket

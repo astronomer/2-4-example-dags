@@ -1,4 +1,5 @@
 .git
 .env
+.pyc
 airflow_settings.yaml
 astro
