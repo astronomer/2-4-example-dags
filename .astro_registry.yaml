@@ -1,0 +1,22 @@
+# These categories will be applied to all DAGs in the repo.
+categories:
+  - Airflow Fundamentals
+# List of DAGs that should be published to the Astronomer Registry.
+dags:
+  - path: dags/2_3_example_dag_zip_workaround.py
+  - path: dags/2_3_example_toy_dag_mapping_xcoms.py
+  - path: dags/2_4_example_dag_expand_kwargs.py
+  - path: dags/2_4_example_dag_map_function.py
+  - path: dags/2_4_example_dag_zip.py
+  - path: dags/2_4_example_toy_dag_map_function.py
+  - path: dags/2_4_example_toy_dag_mapping_multiple_parameters.py
+  - path: dags/datasets-astro-sdk.py
+  - path: dags/datasets-downstream1.py
+  - path: dags/datasets-ml-example-consume.py
+  - path: dags/datasets-ml-example-publish.py
+  - path: dags/datasets-upstream1.py
+  - path: dags/datasets-upstream2.py
+
+
+
+
