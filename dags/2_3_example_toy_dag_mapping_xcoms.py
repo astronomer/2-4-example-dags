@@ -13,7 +13,8 @@ with DAG(
     dag_id="2_3_example_toy_dag_mapping_xcoms",
     start_date=datetime(2022, 7, 1),
     schedule_interval=None,
-    catchup=False
+    catchup=False,
+    doc_md=__doc__,
 ) as dag:
 
     # EXAMPLE 1: upstream and downstream task are defined using the TaskFlowAPI
