@@ -1,6 +1,9 @@
-"""Toy example DAG containing different options for dynamic task mapping.
+"""
+### Dynamic Task Mapping Options
 
-Some of these features require Airflow version 2.4+.
+Toy example DAG containing different options for dynamic task mapping.
+
+This DAG shows 5 different examples for Airflow's new dynamic mapping features. This will require Airflow version 2.4+.
 """
 
 from airflow import DAG

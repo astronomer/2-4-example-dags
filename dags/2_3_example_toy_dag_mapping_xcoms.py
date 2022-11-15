@@ -1,6 +1,9 @@
-"""Toy example DAG showing dynamic task mapping with XComs.
+"""
+### Toy example DAG showing dynamic task mapping with XComs.
 
 These features are available in Airflow version 2.3+.
+
+Airflow 2.3+ introduced dynamic task mapping to map over runtime conditions. This DAG goes through using XCOMs to map over a set of values.
 """
 
 from airflow import DAG

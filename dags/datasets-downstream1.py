@@ -1,6 +1,11 @@
 """
+### Consuming Downstream Datasets
+
 This is an example of a DAG that consumes two datasets.
 The DAG only runs once dag1_dataset and dag2_dataset have been updated.
+
+Airflow 2.4 introduced the concept of data driven scheduling. This can be used to have DAGs run based 
+on updates to underlying datasets, not cron schedules.
 """
 
 import pendulum

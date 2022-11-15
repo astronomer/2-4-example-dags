@@ -1,4 +1,5 @@
-"""Example DAG showing the use of the .expand_kwargs method.
+"""
+### Sort files in S3 with .expand_kwargs.
 
 This DAG shows an example implementation of sorting files in an S3 bucket into
 two different buckets based on logic involving the content of the files using

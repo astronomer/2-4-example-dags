@@ -1,4 +1,6 @@
 """
+### Batch Predictions with Data Driven Scheduling
+
 This DAG shows an example implementation of executing predictions from a machine learning model using AWS SageMaker.
 The DAG assumes that a SageMaker model has already been created, and runs the one-time batch inference job
 using SageMaker batch transform. This method is useful if you don't have a hosted model endpoint and want

@@ -1,4 +1,6 @@
 """
+### Publish a Dataset for Sagemaker to Consume
+
 This DAG publishes a dataset that is used by a separate consumer DAG to execute predictions 
 from a machine learning model using AWS SageMaker. 
 

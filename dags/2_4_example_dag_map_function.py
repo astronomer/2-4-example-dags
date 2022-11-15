@@ -1,4 +1,6 @@
-"""Example DAG showing the use of the .map method.
+"""
+### Delete S3Objects with the .map method.
+
 This DAG shows an example implementation of dynamically mapping over an
 S3DeleteObjectsOperator and skipping deletion of certain files based on their
 filetype using a .map mapping. This type of mapping was added in Airflow 2.4.

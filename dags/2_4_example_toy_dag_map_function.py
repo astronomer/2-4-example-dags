@@ -1,4 +1,7 @@
-"""Toy example DAG showing how the .map method works.
+"""
+### Map over the output of a task
+
+Toy example DAG showing how the .map method works.
 
 This example shows the syntax and workings of using the .map function on
 the output of a task.

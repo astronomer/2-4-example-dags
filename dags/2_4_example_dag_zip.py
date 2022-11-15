@@ -1,4 +1,7 @@
-"""Example DAG showing the use of the .zip method of the XComArg object.
+"""
+### Compare S3 data with the .zip() method
+
+Example DAG showing the use of the .zip method of the XComArg object.
 This DAG shows an example implementation of comparing data between two
 S3 buckets and a table in Snowflake using the new .zip() method of the
 XComArg object.

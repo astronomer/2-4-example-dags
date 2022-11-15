@@ -1,4 +1,5 @@
-"""Example DAG showing a workaround to 'zip' arguments in Airflow 2.3.
+"""
+### Workaround to 'zip' arguments in Airflow 2.3.
 
 This DAG shows an example implementation of comparing data between two
 S3 buckets and a table in Snowflake by using a Python decorated task to zip

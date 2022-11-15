@@ -1,4 +1,6 @@
 """
+### Datasets in Snowflake with AstroSDK
+
 The datasets feature is pre-built into the Astro Python SDK.
 Datasets will be registered from any output tables, and the user
 does not need to define any `outlets` explicitly. 

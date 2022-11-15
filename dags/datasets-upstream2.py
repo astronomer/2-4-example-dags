@@ -1,8 +1,10 @@
 """
+### Datasets with Bash Operators
+
 This is an example of a DAG with dataset producer tasks.
 upstream_task_2 and upstream_task_3 update dag2_dataset.
 
-This is meant to show off data driven scheduling in Airflow 2.4
+This is meant to show off data driven scheduling in Airflow 2.4. 
 """
 
 import pendulum
