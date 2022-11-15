@@ -28,7 +28,7 @@ with DAG(
     schedule=None,
     catchup=False,
     doc_md=__doc__,
-):
+) as dag:
 
     # the S3ListOperator will return all names of files in the S3 bucket and
     # can only filter by prefix, not by filetype
