@@ -20,7 +20,7 @@ with DAG(
     schedule=None,
     catchup=False,
     doc_md=__doc__,
-):
+) as dag:
 
     # an upstream task returns a list of outputs in a fixed format
     @task
