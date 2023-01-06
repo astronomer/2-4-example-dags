@@ -76,9 +76,10 @@ with DAG(
         """Tests the content of each file for whether it is an integer."""
         destination_list = []
         for file_content in content_list:
-            if isinstance(file_content, int):
+            try:
+                int(file_content)
                 destination_list.append(S3_INTEGER_BUCKET)
-            else:
+            except ValueError:
                 destination_list.append(S3_NOT_INTEGER_BUCKET)
 
         return destination_list
